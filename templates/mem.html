@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %} Memoria {% endblock %}
+
+{% block content %}
+<div class="container" style="height: 100vh">
+    <div class="flex-center flex-column">
+        <table class="table table-striped">
+            <thead class="thead-inverse">
+              <tr>
+                <th>#</th>
+                <th>Kernel</th>
+                <th>Release</th>
+                <th>NodeName</th>
+                <th>KernelV</th>
+                <th>Machine</th>
+                <th>Processor</th>
+                <th>So</th>
+                <th>Hardware</th>
+              </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                        <th scope="row">{{ so.id }}</th>
+                        <td>{{ so.kernel }}</td>
+                        <td>{{ so.release }}</td>
+                        <td>{{ so.nodename }}</td>
+                        <td>{{ so.kernelv }}</td>
+                        <td>{{ so.machine }}</td>
+                        <td>{{ so.processor }}</td>
+                        <td>{{ so.so }}</td>
+                        <td>{{ so.hardware }}</td>
+                    </tr>
+            </tbody>
+          </table>
+    </div>
+</div>
+{% endblock %}
+  
+    
