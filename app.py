@@ -1,4 +1,3 @@
-#KEY = postgresql-closed-81267
 import os
 
 from flask import Flask
@@ -12,7 +11,7 @@ app.config['DEBUG'] = True
 
 db = SQLAlchemy(app)
 
-class So(db.Model):
+class Maquina(db.Model):
 	id_so = db.Column(db.Integer, primary_key=True)
 	kernel = db.Column(db.String(100), unique=True)
 	release = db.Column(db.String(100), unique=True)
@@ -36,30 +35,31 @@ class So(db.Model):
 	swap_so  = db.Column(db.String(100), unique=True)
     
 
-    def __init__(self, kernel, release, nodename, kernelv, machine, processor, so, hardware):
-	self.kernel = kernel
-	self.release = release
-	self.nodename = nodename
-	self.kernelv = kernelv
-	self.machine = machine
-	self.processor = processor
-	self.so = so
-	self.hardware = hardware
-	self.usser_logged = user_logged
-	self.cpu_us = cpu_us
-	self.cpu_sy = cpu_sy
-	self.cpu_id = cpu_id
-	self.cpu_wa = cpu_wa
-	self.cpu_st = cpu_st
-	self.mem_swpd = mem_swpd
-	self.mem_free = mem_free
-	self.mem_buff = mem_buff
-	self.cache = cache
-	self. swap_si =  swap_si
-	self.swap_so = swap_so
+	def __init__(self, kernel, release, nodename, kernelv, machine, processor, so, hardware, user_logged, cpu_us, cpu_us, cpu_sy, cpu_id, cpu_wa, cpu_st, mem_swpd, mem_free, mem_buff, cache, swap_si, swap_s0):
+		self.kernel = kernel
+		self.release = release
+		self.nodename = nodename
+		self.kernelv = kernelv
+		self.machine = machine
+		self.processor = processor
+		self.so = so
+		self.hardware = hardware
+		self.user_logged = user_logged
+		self.cpu_us = cpu_us
+		self.cpu_sy = cpu_sy
+		self.cpu_id = cpu_id
+		self.cpu_wa = cpu_wa
+		self.cpu_st = cpu_st
+		self.mem_swpd = mem_swpd
+		self.mem_free = mem_free
+		self.mem_buff = mem_buff
+		self.cache = cache
+		self. swap_si =  swap_si
+		self.swap_so = swap_so
 
     def __repr__(self): 
-        return "<Os(id='%d', kernel='%s', release='%s', nodename='%s', kernelv='%s', machine='%s', processor='%s', so='%s', hardware='%s', usser_logged='%s', cpu_us='%s', cpu_sy='%s',cpu_id='%s', cpu_wa='%s', cpu_st='%s',mem_swpd='%s', mem_free='%s',  mem_buff='%s', cache='%s', swap_si='%s',swap_so='%s')>" % (self.id, self.kernel, self.release, self.nodename, self.kernelv, self.machine, self.processor, self.so, self.hardware, self.usser_logged, self.cpu_usself.cpu_sy, self.cpu_id, self.cpu_wa, self.cpu_st, self.mem_swpd, self.mem_free, self.mem_buff, self.cache, self.swap_si, self.swap_so)
+        return "<Maquina(id='%d', kernel='%s', release='%s', nodename='%s', kernelv='%s', machine='%s', processor='%s', so='%s', hardware='%s', user_logged='%s', cpu_us='%s', cpu_sy='%s',cpu_id='%s', cpu_wa='%s', cpu_st='%s',mem_swpd='%s', mem_free='%s',  mem_buff='%s', cache='%s', swap_si='%s',swap_so='%s')>" % (
+			self.id, self.kernel, self.release, self.nodename, self.kernelv, self.machine, self.processor, self.so, self.hardware, self.user_logged, self.cpu_su, self.cpu_sy, self.cpu_id, self.cpu_wa, self.cpu_st, self.mem_swpd, self.mem_free, self.mem_buff, self.cache, self.swap_si, self.swap_so)
 
         
 @app.route('/')
