@@ -74,12 +74,12 @@ class Descargas(db.Model):
 def index():
 	return render_template('index.html')
 
-''' 
+
 @app.route('/machine/show')
 def machineShow():
 	machine = Maquina.query.filter(Maquina.id == 1).one()
 	return render_template('machine.html',machine = machine)
-'''
+
 
 @app.route('/download/show')
 def downloadShow():
