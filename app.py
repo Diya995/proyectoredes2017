@@ -75,12 +75,12 @@ class Descargas(db.Model):
 def index():
 	return render_template('index.html')
 
-
+'''
 @app.route('/machine/show')
 def machineShow():
 	machine = Maquina.query.filter(Maquina.id_so == 1).one()
 	return render_template('machine.html',machine = machine)
-
+'''
 
 @app.route('/download/show')
 def downloadShow():
@@ -88,7 +88,7 @@ def downloadShow():
 	return render_template('download.html',download = download)
 
 @app.route('/download/update/<string:magnet_link>/<string:iniciada>/<string:estado_descarga>', methods=['GET'])
-def ced(magnet_link,iniciada,estada_descarga,):
+def downloadUpdate(magnet_link,iniciada,estado_descarga,):
 	download = Descargas.query.filter(Descargas.id_dt == 1).one()
 	download.magnet_link = magnet_link
 	download.iniciada = iniciada
