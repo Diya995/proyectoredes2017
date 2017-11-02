@@ -77,7 +77,7 @@ def index():
 
 @app.route('/machine/show')
 def machineShow():
-	machine = Maquina.query.filter(Maquina.id == 1).one()
+	machine = Maquina.query.filter(Maquina.id_dt == 1).one()
 	return render_template('machine.html',machine = machine)
 
 
