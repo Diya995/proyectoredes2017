@@ -48,7 +48,7 @@ class Maquina(db.Model):
 		self.cpu_us = cpu_us
 		self.cpu_sy = cpu_sy
 		self.cache = cache
-		self.swap_si =  swap_si
+		self.swap_si = swap_si
 		self.swap_so = swap_so
 
 
@@ -77,13 +77,13 @@ def index():
 
 @app.route('/machine/show')
 def machineShow():
-	machine = Maquina.query.filter(Maquina.id_dt == 1).one()
+	machine = Maquina.query.filter(Maquina.id == 1).one()
 	return render_template('machine.html',machine = machine)
 
 
 @app.route('/download/show')
 def downloadShow():
-	download = Descargas.query.filter(Descargas.id == 1).one()
+	download = Descargas.query.filter(Descargas.id_dt == 1).one()
 	return render_template('download.html',download = download)
 
 
