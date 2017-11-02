@@ -58,24 +58,39 @@ class Maquina(db.Model):
 		self.swap_so = swap_so
 
     def __repr__(self): 
-        return "<Maquina(id='%d', kernel='%s', release='%s', nodename='%s', kernelv='%s', machine='%s', processor='%s', so='%s', hardware='%s', user_logged='%s', cpu_us='%s', cpu_sy='%s',cpu_id='%s', cpu_wa='%s', cpu_st='%s',mem_swpd='%s', mem_free='%s',  mem_buff='%s', cache='%s', swap_si='%s',swap_so='%s')>" % (
-			self.id, self.kernel, self.release, self.nodename, self.kernelv, self.machine, self.processor, self.so, self.hardware, self.user_logged, self.cpu_su, self.cpu_sy, self.cpu_id, self.cpu_wa, self.cpu_st, self.mem_swpd, self.mem_free, self.mem_buff, self.cache, self.swap_si, self.swap_so)
+    	return "<Maquina(id='%d', kernel='%s', release='%s', nodename='%s', kernelv='%s', machine='%s', processor='%s', so='%s', hardware='%s', user_logged='%s', cpu_us='%s', cpu_sy='%s',cpu_id='%s', cpu_wa='%s', cpu_st='%s',mem_swpd='%s', mem_free='%s',  mem_buff='%s', cache='%s', swap_si='%s',swap_so='%s')>" % (
+		self.id, self.kernel, self.release, self.nodename, self.kernelv, self.machine, self.processor, self.so, self.hardware, self.user_logged, self.cpu_su, self.cpu_sy, self.cpu_id, self.cpu_wa, self.cpu_st, self.mem_swpd, self.mem_free, self.mem_buff, self.cache, self.swap_si, self.swap_so)
 
         
+class Descargas(db.Model):
+    id_dt = db.Column(db.Integer, primary_key=True)
+    magnet_link = db.Column(db.String(100), unique=True)
+    iniciada = db.Column(db.String(100), unique=True)
+    estado_descarga = db.Column(db.String(100), unique=True)
+
+    def __init__(self,magnet_link,iniciada,estado_descarga):
+        self.magnet_link = magnet_link
+        self.iniciada = iniciada
+        self.estado_descarga = estado_descarga
+
+    def __repr__(self):
+        return "<Descargas(id_dt='%d', magnet_link='%s', iniciada='%s', estado_descarga='%s')>" % (
+        self.id_dt, self.magnet_link, self.iniciada, self.estado_descarga)   
+
 @app.route('/')
 def index():
 	return render_template('index.html')
      
-@app.route('/consultarEstadoMaquina')
-def soShow():
-	so = So.query.filter(So.id == 1).one()
-	return render_template('so.html',so = so)
+@app.route('/machine/show')
+def machineShow():
+	machine = Maquina.query.filter(Maquina.id == 1).one()
+	return render_template('machine.html',machine = machine)
 
 
-@app.route('/consultarEstadosDescargas')
-def memShow():
-	careers = So.query.all()
-	return render_template('mem.html',carreras = careers)
+@app.route('/download/show')
+def downloadShow():
+	download = Descargas.query.filter(Descargas.id == 1).one()
+	return render_template('download.html',download = download)
 
 
 @app.route('/robots.txt')
@@ -84,6 +99,9 @@ def robots():
 	res.mimetype = 'text/plain'
 	return res
 
+if __name__ == '__main__':
+	port = int(os.environ.get('PORT', 5000))
+	app.run(host='0.0.0.0', port=port, debug=True)
 if __name__ == '__main__':
 	port = int(os.environ.get('PORT', 5000))
 	app.run(host='0.0.0.0', port=port, debug=True)
