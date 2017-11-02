@@ -69,7 +69,7 @@ class So(db.Model):
 @app.route('/')
 def index():
     return render_template('index.html')
-
+ 
 @app.route('/consultarEstadoMaquina')
 def soShow():
     so = So.query.filter(So.id == 1).one()
