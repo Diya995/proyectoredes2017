@@ -37,9 +37,9 @@ class So(db.Model):
     
 
     def __init__(self, kernel, release, nodename, kernelv, machine, processor, so, hardware):
-        self.kernel = kernel
-        self.release = release
-        self.nodename = nodename
+	self.kernel = kernel
+	self.release = release
+	self.nodename = nodename
         self.kernelv = kernelv
         self.machine = machine
         self.processor = processor
@@ -58,18 +58,14 @@ class So(db.Model):
 	self. swap_si =  swap_si
  	self.swap_so = swap_so
 
-    def __repr__(self):
-        return "<Os(id='%d', kernel='%s', release='%s', nodename='%s', kernelv='%s', machine='%s', processor='%s', so='%s', hardware='%s',
-	usser_logged='%s', cpu_us='%s', cpu_sy='%s',cpu_id='%s', cpu_wa='%s', cpu_st='%s',mem_swpd='%s', mem_free='%s',  mem_buff='%s', 
-	cache='%s', swap_si='%s',swap_so='%s')>" % (
-        self.id, self.kernel, self.release, self.nodename, self.kernelv, self.machine, self.processor, self.so, self.hardware, self.usser_logged, self.cpu_us
-	self.cpu_sy, self.cpu_id, self.cpu_wa, self.cpu_st, self.mem_swpd, self.mem_free, self.mem_buff, self.cache, self.swap_si, self.swap_so)
+    def __repr__(self): 
+        return "<Os(id='%d', kernel='%s', release='%s', nodename='%s', kernelv='%s', machine='%s', processor='%s', so='%s', hardware='%s', usser_logged='%s', cpu_us='%s', cpu_sy='%s',cpu_id='%s', cpu_wa='%s', cpu_st='%s',mem_swpd='%s', mem_free='%s',  mem_buff='%s', cache='%s', swap_si='%s',swap_so='%s')>" % (self.id, self.kernel, self.release, self.nodename, self.kernelv, self.machine, self.processor, self.so, self.hardware, self.usser_logged, self.cpu_usself.cpu_sy, self.cpu_id, self.cpu_wa, self.cpu_st, self.mem_swpd, self.mem_free, self.mem_buff, self.cache, self.swap_si, self.swap_so)
 
         
 @app.route('/')
 def index():
     return render_template('index.html')
- 
+     
 @app.route('/consultarEstadoMaquina')
 def soShow():
     so = So.query.filter(So.id == 1).one()
