@@ -48,7 +48,7 @@ class Maquina(db.Model):
 		self.cpu_us = cpu_us
 		self.cpu_sy = cpu_sy
 		self.cache = cache
-		self. swap_si =  swap_si
+		self.swap_si =  swap_si
 		self.swap_so = swap_so
 
 
