@@ -11,6 +11,7 @@ app.config['DEBUG'] = True
 
 db = SQLAlchemy(app)
 
+'''
 class Maquina(db.Model):
 	id_so = db.Column(db.Integer, primary_key=True)
 	kernel = db.Column(db.String(100), unique=True)
@@ -52,6 +53,9 @@ class Maquina(db.Model):
 		self.swap_so = swap_so
 
 
+	def __repr__(self):
+    	return "<Maquina(id_so='%d', kernel='%s', release='%s', nodename='%s', kernelv='%s', machine='%s', processor='%s', so='%s', hardware='%s', user_logged='%s', cpu_us='%s', cpu_sy='%s',cpu_id='%s', cpu_wa='%s', cpu_st='%s',mem_swpd='%s', mem_free='%s',  mem_buff='%s', cache='%s', swap_si='%s',swap_so='%s')>" % (self.id, self.kernel, self.release, self.nodename, self.kernelv, self.machine, self.processor, self.so, self.hardware, self.user_logged, self.cpu_us, self.cpu_sy, self.cpu_id, self.cpu_wa, self.cpu_st, self.mem_swpd, self.mem_free, self.mem_buff, self.cache, self.swap_si, self.swap_so)
+'''
         
 class Descargas(db.Model):
     id_dt = db.Column(db.Integer, primary_key=True)
@@ -83,6 +87,14 @@ def downloadShow():
 	download = Descargas.query.filter(Descargas.id_dt == 1).one()
 	return render_template('download.html',download = download)
 
+@app.route('/download/update/<string:magnet_link>/<string:iniciada>/<string:estado_descarga>', methods=['GET'])
+def ced(magnet_link,iniciada,estada_descarga,):
+	download = Descargas.query.filter(Descargas.id_dt == 1).one()
+	download.magnet_link = magnet_link
+	download.iniciada = iniciada
+	download.estado_descarga = estado_descarga
+	db.session.commit()
+	return "SE HA MODIFICADO"
 
 @app.route('/robots.txt')
 def robots():
