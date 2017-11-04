@@ -1,42 +1,62 @@
-import os
+#!/usr/local/bin/python 
+# -*- coding: utf-8 -*-
+'''------------------------------------------------------------------------------------------'''
+#app.py 
+'''Este modulo se encarga de brindar informacion de como usar la aplicacion en heroku 
+En este archivo tambien se tienen los metodos para guardar los datos en la base de datos'''
+'''------------------------------------------------------------------------------------------'''
 
+'''------------------------------------------------------------------------------------------'''
+#NOTA: Los metodos aqui especificados estan sujetos a varios cambios 
+'''------------------------------------------------------------------------------------------'''
+
+'''------------------------------------------------------------------------------------------'''
+import os
 from flask import Flask
 from flask import render_template
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.sqlalchemy import SQLAlchemy  
+'''------------------------------------------------------------------------------------------'''
 
+'''------------------------------------------------------------------------------------------'''
 app = Flask(__name__)
+'''------------------------------------------------------------------------------------------'''
+ 
+'''------------------------------------------------------------------------------------------'''
+#conectarBaseDatos
+'''Realiza la conexion a la base de datos
+Este metodo se encarga de realizar la conexion a la base de datos'''
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['DEBUG'] = True
-
-db = SQLAlchemy(app)
-
-'''
-class Maquina(db.Model):
-	id_so = db.Column(db.Integer, primary_key=True)
-	kernel = db.Column(db.String(100), unique=True)
-	release = db.Column(db.String(100), unique=True)
-	nodename = db.Column(db.String(100), unique=True)
-	kernelv = db.Column(db.String(100), unique=True)
-	machine = db.Column(db.String(100), unique=True)
-	processor = db.Column(db.String(100), unique=True)
-	so = db.Column(db.String(100), unique=True)
-	hardware = db.Column(db.String(100), unique=True)
-	user_logged = db.Column(db.String(100), unique=True)
-	cpu_us = db.Column(db.String(100), unique=True)
-	cpu_sy  = db.Column(db.String(100), unique=True)
-	cpu_id = db.Column(db.String(100), unique=True)
-	cpu_wa = db.Column(db.String(100), unique=True)
-	cpu_st = db.Column(db.String(100), unique=True)
-	mem_swpd = db.Column(db.String(100), unique=True)
-	mem_free = db.Column(db.String(100), unique=True)
-	mem_buff  = db.Column(db.String(100), unique=True)
-	cache = db.Column(db.String(100), unique=True)
-	swap_si = db.Column(db.String(100), unique=True)
-	swap_so  = db.Column(db.String(100), unique=True)
+bd = SQLAlchemy(app) 
+'''------------------------------------------------------------------------------------------'''
+ 
+'''------------------------------------------------------------------------------------------'''
+class Maquina(bd.Model):
+	id_so = bd.Column(bd.Integer, primary_key=True)
+	kernel = bd.Column(bd.String(100), unique=True)
+	release = bd.Column(bd.String(100), unique=True)
+	nodename = bd.Column(bd.String(100), unique=True)
+	kernelv = bd.Column(bd.String(100), unique=True)
+	machine = bd.Column(bd.String(100), unique=True)
+	processor = bd.Column(bd.String(100), unique=True)
+	so = bd.Column(bd.String(100), unique=True)
+	hardware = bd.Column(bd.String(100), unique=True)
+	user_logged = bd.Column(bd.String(100), unique=True)
+	cpu_us = bd.Column(bd.String(100), unique=True)
+	cpu_sy  = bd.Column(bd.String(100), unique=True)
+	cpu_id = bd.Column(bd.String(100), unique=True)
+	cpu_wa = bd.Column(bd.String(100), unique=True)
+	cpu_st = bd.Column(bd.String(100), unique=True)
+	mem_swpd = bd.Column(bd.String(100), unique=True)
+	mem_free = bd.Column(bd.String(100), unique=True)
+	mem_buff  = bd.Column(bd.String(100), unique=True)
+	cache = bd.Column(bd.String(100), unique=True)
+	swap_si = bd.Column(bd.String(100), unique=True)
+	swap_so  = bd.Column(bd.String(100), unique=True)     
     
 
-	def __init__(self, kernel, release, nodename, kernelv, machine, processor, so, hardware, user_logged, cpu_us, cpu_us, cpu_sy, cpu_id, cpu_wa, cpu_st, mem_swpd, mem_free, mem_buff, cache, swap_si, swap_s0):
+	def __init__(self, kernel, release, nodename, kernelv, machine, processor, so, hardware, user_logged, cpu_us, cpu_sy, cpu_id, cpu_wa, cpu_st, mem_swpd, mem_free, mem_buff, cache, swap_si, swap_so):
 		self.kernel = kernel
 		self.release = release
 		self.nodename = nodename
@@ -47,61 +67,154 @@ class Maquina(db.Model):
 		self.hardware = hardware
 		self.user_logged = user_logged
 		self.cpu_us = cpu_us
-		self.cpu_sy = cpu_sy
+		self.cpu_sy = cpu_sy 
+		self.cpu_id = cpu_id
+		self.cpu_wa = cpu_wa
+		self.cpu_st = cpu_st
+		self.mem_swpd = mem_swpd
+		self.mem_free = mem_free
+		self.mem_buff = mem_buff
 		self.cache = cache
 		self.swap_si = swap_si
-		self.swap_so = swap_so
+		self.swap_so = swap_so 
 
-
-	def __repr__(self):
-    	return "<Maquina(id_so='%d', kernel='%s', release='%s', nodename='%s', kernelv='%s', machine='%s', processor='%s', so='%s', hardware='%s', user_logged='%s', cpu_us='%s', cpu_sy='%s',cpu_id='%s', cpu_wa='%s', cpu_st='%s',mem_swpd='%s', mem_free='%s',  mem_buff='%s', cache='%s', swap_si='%s',swap_so='%s')>" % (self.id, self.kernel, self.release, self.nodename, self.kernelv, self.machine, self.processor, self.so, self.hardware, self.user_logged, self.cpu_us, self.cpu_sy, self.cpu_id, self.cpu_wa, self.cpu_st, self.mem_swpd, self.mem_free, self.mem_buff, self.cache, self.swap_si, self.swap_so)
-'''
-        
-class Descargas(db.Model):
-    id_dt = db.Column(db.Integer, primary_key=True)
-    magnet_link = db.Column(db.String(100), unique=True)
-    iniciada = db.Column(db.String(100), unique=True)
-    estado_descarga = db.Column(db.String(100), unique=True)
+	def __repr__(self): 
+		return "<Maquina(id_so='%d', kernel='%s', release='%s', nodename='%s', kernelv='%s', machine='%s', processor='%s', so='%s', hardware='%s', usser_logged='%s', cpu_us='%s', cpu_sy='%s', cpu_id='%s', cpu_wa='%s', cpu_st='%s', mem_swpd='%s', mem_free='%s', mem_buff='%s', cache='%s', swap_si='%s', swap_so='%s')>" % (self.id_so, self.kernel, self.release, self.nodename, self.kernelv, self.machine, self.processor, self.so, self.hardware, self.user_logged, self.cpu_us, self.cpu_sy, self.cpu_id, self.cpu_wa, self.cpu_st, self.mem_swpd, self.mem_free, self.mem_buff, self.cache, self.swap_si, self.swap_so)
+'''------------------------------------------------------------------------------------------'''
+ 
+'''------------------------------------------------------------------------------------------'''
+class Descargas(bd.Model):
+    id_dt = bd.Column(bd.Integer, primary_key=True)
+    magnet_link = bd.Column(bd.String(100), unique=True)
+    iniciada = bd.Column(bd.String(100), unique=True)
+    estado_descarga = bd.Column(bd.String(100), unique=True)
 
     def __init__(self,magnet_link,iniciada,estado_descarga):
         self.magnet_link = magnet_link
         self.iniciada = iniciada
-        self.estado_descarga = estado_descarga
+        self.estado_descarga = estado_descarga 
+  
+    def __repr__(self): 
+        return "<Descargas(id_dt='%d', magnet_link='%s', iniciada='%s', estado_descarga='%s')>" % (self.id_dt, self.magnet_link, self.iniciada, self.estado_descarga)
+'''------------------------------------------------------------------------------------------'''
 
-    def __repr__(self):
-        return "<Descargas(id_dt='%d', magnet_link='%s', iniciada='%s', estado_descarga='%s')>" % (self.id_dt, self.magnet_link, self.iniciada, self.estado_descarga)   
-
-@app.route('/')
+'''------------------------------------------------------------------------------------------'''
+#index
+'''Vista principal con instrucciones
+Este metodo se encarga de brindar una vista en HTML Plano con la informacion
+de como llevar a cabo los procesos dentro de la aplicacion, todos estos se 
+llevan escribiendo URLs en el navegador'''
+@app.route('/', methods=['GET']) 
 def index():
 	return render_template('index.html')
+'''------------------------------------------------------------------------------------------'''
 
-'''
-@app.route('/machine/show')
-def machineShow():
-	machine = Maquina.query.filter(Maquina.id_so == 1).one()
-	return render_template('machine.html',machine = machine)
-'''
+'''------------------------------------------------------------------------------------------'''
+#actualizarEstadoMaquina
+'''Actualiza el estado de la maquina
+Este metodo se encarga de actualizar el estado de de la maquina'''
+@app.route('/actualizarEstadoMaquina/<string:kernel>/<string:release>/<string:nodename>/<string:kernelv>/<string:machine>/<string:processor>/<string:so>/<string:hardware>/<string:user_logged>/<string:cpu_us>/<string:cpu_sy>/<string:cpu_id>/<string:cpu_wa>/<string:cpu_st>/<string:mem_swpd>/<string:mem_free>/<string:mem_buff>/<string:cache>/<string:swap_si>/<string:swap_so>', methods=['GET'])
+def actualizarEstadoMaquina(kernel, release, nodename, kernelv, machine, processor, so, hardware, user_logged, cpu_us, cpu_sy, cpu_id, cpu_wa, cpu_st, mem_swpd, mem_free, mem_buff, cache, swap_si, swap_so):
+	maquina = Maquina.query.filter(Maquina.id_so == 1).one()
+	maquina.kernel = kernel  
+	maquina.release = release
+	maquina.nodename = nodename
+	maquina.kernelv = kernelv
+	maquina.machine = machine
+	maquina.processor = processor
+	maquina.so = so
+	maquina.hardware = hardware
+	maquina.user_logged = user_logged
+	maquina.cpu_us = cpu_us
+	maquina.cpu_sy = cpu_sy
+	maquina.cpu_id = cpu_id
+	maquina.cpu_wa = cpu_wa
+	maquina.cpu_st = cpu_st
+	maquina.mem_swpd = mem_swpd
+	maquina.mem_free = mem_free
+	maquina.mem_buff = mem_buff
+	maquina.cache = cache
+	maquina.swap_si = swap_si
+	maquina.swap_so = swap_so 
+	bd.session.commit() 
+	return "	Se ha actualizado el estado de la maquina correctamente \n" 
+'''------------------------------------------------------------------------------------------'''
 
-@app.route('/download/show')
-def downloadShow():
-	download = Descargas.query.filter(Descargas.id_dt == 1).one()
-	return render_template('download.html',download = download)
+'''------------------------------------------------------------------------------------------'''
+#consultarEstadoMaquina
+'''Consultar estado de la maquina
+Este  metodo hace la consulta de la ultima actualizacion de estado de la maquina, almacenada
+en la base de datos'''
+@app.route('/consultarEstadoMaquina', methods=['GET'])
+def consultarEstadoMaquina():
+	maquina = Maquina.query.filter(Maquina.id_so == 1).one()
+	return render_template('maquina.html', maquina = maquina)   
+'''------------------------------------------------------------------------------------------'''
 
-@app.route('/download/update/<string:magnet_link>/<string:iniciada>/<string:estado_descarga>', methods=['GET'])
-def downloadUpdate(magnet_link,iniciada,estado_descarga):
-	download = Descargas.query.filter(Descargas.id_dt == 1).one()
-	download.magnet_link = magnet_link
-	download.iniciada = iniciada
-	download.estado_descarga = estado_descarga
-	db.session.commit()
-	return "SE HA MODIFICADO"
+'''------------------------------------------------------------------------------------------'''
+#consultarEstadoMaquinaParametro
+'''Consultar el estado de un parametro especifico de la maquina
+Este metodo se encarga de consultar la ultima actualizacion de estado de un parametro especifico 
+almacenada en la base de datos
+@app.route('/consultarEstadoMaquinaParametro/<string:parametro>', methods=['GET'])
+def estadoMaquinaParametro(parametro):
+	return """
+	<p>En esta ruta puede ver el último estado registrado de su máquina LInux con el parámetro: {{parametro}}</p>'''
+'''------------------------------------------------------------------------------------------'''
+
+'''------------------------------------------------------------------------------------------'''
+#ordenarDescargaTorrent
+'''Ordenar la descarga de un torrent 
+Este metodo se encarga de ordenar la descarga de un torrent que se hace a traves de un magnet link
+ y almacena la orden en la base de datos
+@app.route('/ordenardescarga/<string:magnetlink>/<string:iniciada>/<string:estadodescarga>', methods=['GET'])
+def ordenarDescarga(magnetlink, iniciada, estadodescarga):
+	cursor = conexion.cursor()
+	"INSERT INTO estadosdescargas (magnet_link, iniciada, estadodescarga) VALUES ()"
+	cursor.execute( )	
+	return """
+	<p>En esta ruta puede ordenar la descarga de un Torrent a través de un Magnet Link</p>
+	"""'''
+'''------------------------------------------------------------------------------------------'''
+ 
+'''------------------------------------------------------------------------------------------'''
+#actualizarEstadoDescarga
+'''Actualiza el estado de una descarga de torrent
+Este metodo se encarga de actualizar el estado de una descarga de torrent anteriormente ordenada'''
+@app.route('/actualizarEstadoDescarga/<string:magnet_link>/<string:iniciada>/<string:estado_descarga>', methods=['GET'])
+def actualizarEstadoDescarga(magnet_link,iniciada,estado_descarga):
+	descarga = Descargas.query.filter(Descargas.id_dt == 1).one()
+	descarga.magnet_link = magnet_link 
+	descarga.iniciada = iniciada
+	descarga.estado_descarga = estado_descarga
+	bd.session.commit() 
+	return "	Se ha actualizado el estado de la descarga correctamente \n"
+'''------------------------------------------------------------------------------------------'''
+
+'''------------------------------------------------------------------------------------------'''
+#consultarEstadoDescarga
+'''Consultar el estado de una descarga de torrent
+Este metodo se encarga de consultar el estado de una descarga de torrent anteriormente ordenada'''
+@app.route('/consultarEstadoDescarga', methods=['GET'])
+def consultarEstadoDescarga(): 
+	descarga = Descargas.query.filter(Descargas.id_dt == 1).one()
+	return render_template('descarga.html', descarga = descarga) 
+'''------------------------------------------------------------------------------------------'''
+ 
+'''------------------------------------------------------------------------------------------'''
+@app.errorhandler(404)
+def notFound(error):
+	return "Not found"
 
 @app.route('/robots.txt')
 def robots():
 	res = app.make_response('User-agent: *\nAllow: /')
 	res.mimetype = 'text/plain'
 	return res
+'''------------------------------------------------------------------------------------------'''
 
+'''------------------------------------------------------------------------------------------'''
 if __name__ == '__main__':
 	port = int(os.environ.get('PORT', 5000))
-	app.run(host='0.0.0.0', port=port, debug=True)
+	app.run(host='0.0.0.0', port=port, debug=True)    
+'''------------------------------------------------------------------------------------------'''

@@ -5,21 +5,21 @@
 {% block content %}
 
 <nav class="navbar navbar-expand-lg navbar-dark indigo darken-3">
-    <a class="navbar-brand" href="#">Servidor Heroku</a>
+    <a class="navbar-brand" href="{{ url_for('index') }}">AppredesHDJ Pasarela</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
         aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="{{ url_for('index') }}">Pagina Principal <span class="sr-only">(current)</span></a>
+            <li class="nav-item active"> 
+                <a class="nav-link" href="{{url_for('index')}}">Pagina Principal <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">Maquina</a>
+                <a class="nav-link" href="{{url_for('consultarEstadoMaquina')}}">Estado De La Maquina</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('downloadShow') }}">Descargaas</a>
+                <a class="nav-link" href="{{url_for('consultarEstadoDescarga')}}">Estado De La Descarga</a>
             </li>
         </ul>
     </div>
@@ -29,10 +29,14 @@
     <div class="flex-center flex-column">
 
 <blockquote class="blockquote bq-primary">
-    <p class="bq-title">Servidor Heroku</p>
-    <p>Sirve para leer la informacion del monitoring.py</p>
+    <p class="bq-title">AppredesHDJ Pasarela Service</p>
+    <p>Esta pagina es un puente que sirve para conectar a servicios en la Intranet de la máquina Linux de un tercero anónimo</p>
+    <p>Los servicios son:</p>
+    <p>Monitorear el estado de la máquina Linux del tercero anónimo</p>
+    <p>Ordenar una descarga con Magnet-Link</p>
+    <p>Consultar el estado de los dos procesos anteriores</p> 
 </blockquote>
 
     </div>
 </div>
-{% endblock %}
+{% endblock %} 
